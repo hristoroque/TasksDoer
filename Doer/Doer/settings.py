@@ -124,3 +124,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Paths to locale files
+LOGIN_REDIRECT_URL = '/main/'
