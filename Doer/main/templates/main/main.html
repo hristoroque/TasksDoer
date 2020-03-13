@@ -1,19 +1,15 @@
-<style>
-    .calday {
-        width: 5rem;
-        height: 5rem;
-    }
-    .today{
-        background-color: yellow;
-    }
-    .notthismonth{
-        background-color: gray;
-    }
-</style>
 <form method="POST" action="{% url 'main:logout' %}">
     {% csrf_token %}
     <input type="submit" value="logout">
 </form>
+<form method="POST" action="{% url 'main:add_task' %}">
+    {% csrf_token %}
+    <input type="text" name="description">
+    <button type="submit">Add TAsk</button>
+</form>
+{% for task in tasks %}
+    <p> {{ task.description }} </p>
+{% endfor %}
 <h1>Welcome, {{ request.user.username }}</h1>
 <table>
     {% for week in weeks %}
