@@ -29,7 +29,7 @@ class LoginForm(forms.Form):
         if user is not None:
             login(self.request,user)
         else:
-            raise forms.ValidationError("El papito y la contrase;a no se parecen")
+            raise forms.ValidationError("The username or the password is incorrect")
 
         return self.cleaned_data
 
