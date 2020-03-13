@@ -9,4 +9,5 @@ urlpatterns = [
     path('login/',LoginView.as_view(template_name='main/login.html',form_class=forms.LoginForm),name='login'),
     path('logout/',views.logout_view,name="logout"),
     path('main/',views.MainView.as_view(),name="main"),
+    path('main/add-task/',views.add_task,name="add_task"),
 ]
