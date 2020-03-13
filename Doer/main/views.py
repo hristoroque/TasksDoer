@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate,login,logout
-from . import forms
+from . import forms, models
 from datetime import date
 import calendar
 
@@ -14,7 +14,7 @@ def index(req):
 
 class SignUpView(FormView):
     form_class = forms.UserCreationForm
-    success_url = '/'
+    success_url = '/main/'
     template_name = 'main/signup.html'
 
     def form_valid(self,form):
@@ -38,10 +38,12 @@ class MainView(LoginRequiredMixin,TemplateView):
         today = date.today()
         cal = calendar.Calendar()
 
+        tasks = models.Task.objects.filter(user = self.request.user)
         #months = ["January","February","March"]
         
         context['today'] = today
         context['weeks'] = cal.monthdatescalendar(today.year,today.month)
+        context['tasks'] = tasks
 
         return context
 
@@ -51,3 +53,10 @@ def logout_view(req):
         return redirect(reverse('main:home'))
     else:
         return render(reverse('main:home'))
+
+def add_task(req):
+    if req.method == "POST" and req.user.is_authenticated:
+        description = req.POST.get('description')
+        task = models.Task(description = description, user = req.user)
+        task.save()
+        return redirect('main:main')
