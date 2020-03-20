@@ -1,3 +1,5 @@
+# Status
+This project is still in development
 # TasksDoer
 TaskDoer is a task management app made for professionals and nonprofessionals because it supports the creations of projects.
 ## Installation
