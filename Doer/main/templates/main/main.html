@@ -1,47 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<form method="POST" action="{% url 'main:logout' %}">
-    {% csrf_token %}
-    <button class="ui button" type="submit">
-        Logout
-    </button>
-</form>
-<form method="POST" action="{% url 'main:add_task' %}">
-    {% csrf_token %}
-    <input type="text" name="description">
-    <button type="submit">Add TAsk</button>
-</form>
-{% for task in tasks %}
-    <p> {{ task.description }} </p>
-{% endfor %}
-<h1>Welcome, {{ request.user.username }}</h1>
-<form method="POST" action="{% url 'main:add_task' %}">
-    <div class="ui input">
-        <input type="text" name="description">
+<div class="ui divided grid">    
+    <div class="one column row">
+        <div class="column">
+            <h1 class="ui header">Welcome, {{ request.user.username }}</h1>
+        </div>
+        <form method="POST" action="{% url 'main:logout' %}">
+            {% csrf_token %}
+            <button class="ui button" type="submit">
+                Logout
+            </button>
+        </form>
+        <a href="{% url 'main:calendar' %}"> See Calendar </a>
     </div>
-    <button class="ui button" type="submit">
-        Add Task
-    </button>
-</form>
-{% for task in tasks %}
-    {{ task.description }}
-{% endfor %}
-<table>
-    {% for week in weeks %}
-    <tr>
-        {% for date in week %}
-        <td class="calday 
-                    {% if date.day == today.day %}
-                        today
-                    {% elif date.month != today.month %}
-                        notthismonth
-                    {% endif %}
-                ">
-            {{ date.day }}
-        </td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
+    <div class="two column row">
+        <div class="eleven wide column">
+            <form method="POST" action="{% url 'main:add_task' %}">
+                {% csrf_token %}
+                <div class="ui input">
+                    <input type="text" name="description">
+                </div>
+                <button class="ui button" type="submit">
+                    Add Task
+                </button>
+            </form>
+            <div class="ui items">
+            {% for task in tasks %}
+                    <div class="item">
+                        <div class="content">
+                            <a href="{% url 'main:task_detail' task.pk %}" class="header">
+                                {{ task.description }}
+                            </a>
+                        </div>
+                    </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="five wide column">
+            Details of Task
+        </div>
+    </div>
+</div>
 {% endblock %}

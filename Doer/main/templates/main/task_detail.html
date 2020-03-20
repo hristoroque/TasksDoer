@@ -1,0 +1,19 @@
+{% extends 'app.html' %}
+{% block return %}
+    {% url 'main:main' %}
+{% endblock %}
+{% block title %}
+Task: {{ object.description }}
+{% endblock %}
+{% block appcontent %}
+<p>
+    start date: {{ object.start_date }}
+</p>
+<p>
+    due date: {{ object.due_date }}
+</p>
+<p>
+    duration: {{ object.duration|default:"Sin especificar" }}
+</p>
+<p></p>
+{% endblock %}

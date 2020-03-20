@@ -1,0 +1,26 @@
+{% extends 'app.html' %}
+{% block return %}
+    {% url 'main:main' %}
+{% endblock %}
+{% block title %}
+My Calendar
+{% endblock %}
+{% block appcontent %}
+<table class="ui celled table">
+    {% for week in weeks %}
+    <tr>
+        {% for date in week %}
+        <td class="date selectable 
+        {% if date.month != today.month %}
+            disabled
+        {% elif date.day == today.day %}
+            today
+        {% endif %}"
+        >
+            <a href="{% url 'main:date' date.year date.month date.day %}">{{ date.day }}</a>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

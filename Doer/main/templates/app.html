@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'calendar.css' %}">
+{% endblock %}
+{% block content %}
+<div class="ui container">
+    <a href="{% block return %}{% endblock %}" class="ui button">
+        Go Back
+    </a>
+    <div class="ui divided grid">
+        <div class="one column row">
+            <div class="column">
+                <h1>
+                    {% block title %}
+                    {% endblock %}
+                </h1>
+            </div>
+        </div>
+        {% block appcontent %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
